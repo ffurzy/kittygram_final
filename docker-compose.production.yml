@@ -10,7 +10,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
-    build: ./backend/
+    image: furzygg/kittygram_backend
     env_file: .env
     depends_on:
       - db
@@ -18,13 +18,13 @@ services:
       - static:/backend_static
       - media:/media
   frontend:
+    image: furzygg/kittygram_frontend
     env_file: .env
-    build: ./frontend/
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
   gateway:
-    build: ./nginx/
+    image: furzygg/kittygram_gateway
     env_file: .env
     depends_on:
       - backend
